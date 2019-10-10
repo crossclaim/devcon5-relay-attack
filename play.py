@@ -57,7 +57,7 @@ def read_config():
 
 
 def update_config(config):
-    with open("config.json", "w+") as file:
+    with open("config.json", "w") as file:
         json.dump(config, file)
 
 
@@ -188,6 +188,7 @@ def submit():
 
     # report results to server
     # prepare submission with team id
+    # print(config)
     data = json.dumps({
         'id': config['id'],
         'results': results
@@ -278,6 +279,8 @@ if __name__ == "__main__":
 
     if not register():
         sys.exit(1)
+
+    config = read_config()
 
     command = None
     while not command:
