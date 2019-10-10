@@ -76,13 +76,17 @@ Our script will update your local config file - so, you **only need to register 
 ### Teams
 If you work in a team, you have the following options:
 + Use the **same team name** when registering on multiple machines
+
+OR 
+
 + Use the **same machine** and do pair-programming
 
 ## Commands
 
 The game has three commands:
 
-- `test`:
-- `submit`:  
-- `help`: 
+- `test`: runs tests locally on your machine. Use this to test you solutions locally, before submitting.
+- `submit`:  Submits your solution to our game server
+- `help`:  Local help (just info on commands)
+- `hint`: Ask for a HINT for a specific testcase. **NOTE: you will only get 50% of the points for this testcase after this!**
 - `quit`: 
