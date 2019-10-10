@@ -71,6 +71,13 @@ python3 play.py
 
 The game will ask you to register a team name. You can re-use your team name and the server will return you your previous team id.
 
+Our script will update your local config file - so, you **only need to register once** and you are good to go!
+
+### Teams
+If you work in a team, you have the following options:
++ Use the **same team name** when registering on multiple machines
++ Use the **same machine** and do pair-programming
+
 ## Commands
 
 The game has three commands:
