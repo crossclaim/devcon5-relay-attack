@@ -89,4 +89,4 @@ The game has three commands:
 - `submit`:  Submits your solution to our game server
 - `help`:  Local help (just info on commands)
 - `hint`: Ask for a HINT for a specific testcase. **NOTE: you will only get 50% of the points for this testcase after this!**
-- `quit`: 
+- `quit`: Surrender...
