@@ -35,6 +35,9 @@ May the best team survive....
 
 (HINT: you have to add the correct 'require' statements!)
 
+## Interested? Read up on cross-chain communication our paper: https://eprint.iacr.org/2019/1128.pdf
+
+
 ## Instructions
 
 ### Quick
