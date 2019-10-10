@@ -11,7 +11,7 @@ from functools import update_wrapper
 
 import requests
 
-BASE = "http://localhost:3000"
+BASE = "http://192.168.100.25:3000"
 TESTS = {
     "1": False,
     "2": False,
