@@ -7,6 +7,7 @@ import subprocess
 import sys
 import os
 from subprocess import CalledProcessError
+from functools import update_wrapper
 
 import requests
 
@@ -25,6 +26,17 @@ TESTS = {
 }
 
 
+def handle_connection_failure(f):
+    def wrapper(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except requests.exceptions.RequestException:
+            print("Something went wrong with the server")
+            print("Double check your internet connection")
+            return False
+    return update_wrapper(wrapper, f)
+
+
 def print_file(name):
     with open(os.path.join("docs", name), "r") as file:
         text = file.read()
@@ -37,6 +49,9 @@ def read_config():
             config = json.load(file)
     except FileNotFoundError:
         config = {}
+
+    if "tests" not in config:
+        config["tests"] = TESTS
 
     return config
 
@@ -72,7 +87,13 @@ def user_input(message):
     return my_input
 
 
+@handle_connection_failure
 def register():
+    # check if the user has already registered
+    config = read_config()
+    if "id" in config:
+        return True
+
     url = BASE + "/api/register"
     name = None
 
@@ -80,13 +101,9 @@ def register():
         name = user_input("Please enter your team name: ")
     data = json.dumps({"name": name})
 
-    try:
-        request = requests.post(
-            url, headers={'Content-Type': 'application/json'}, data=data)
-        response = request.json()
-
-    except:
-        print("Something went wrong with the server")
+    request = requests.post(
+        url, headers={'Content-Type': 'application/json'}, data=data)
+    response = request.json()
 
     config["name"] = response["name"]
     config["id"] = response["id"]
@@ -95,7 +112,10 @@ def register():
 
     print(response["message"])
 
+    return True
 
+
+@handle_connection_failure
 def hint():
     # return which cases are not yet solved
     print("")
@@ -110,7 +130,7 @@ def hint():
         if not value:
             open_problems.append(key)
 
-    print("You are under attack! Problems {} are not yet solved!".format(open_problems))
+    print("You are under attack! Problems {} are not yet solved!".format(", ".join(open_problems)))
 
     if not next_test in config["tests"]:
         print("Please enter a valid number!")
@@ -120,15 +140,11 @@ def hint():
     # print("You are submitting the solution for case {}".format(next_test))
 
     # get the testcase from the server
-    try:
-        # submit team_id
-        request = requests.get(url)
-        # print(request.status_code)
-        # print(request._content)
-        response = request.json()
-
-    except:
-        print("Problem with getting the test case from the server")
+    # submit team_id
+    request = requests.get(url)
+    # print(request.status_code)
+    # print(request._content)
+    response = request.json()
 
     try:
         with open(os.path.join("test", response["name"]), "w+") as test_file:
@@ -137,6 +153,7 @@ def hint():
         print("Hint already fetched from the server")
 
 
+@handle_connection_failure
 def submit():
     url = BASE + "/api/submit"
 
@@ -177,18 +194,16 @@ def submit():
     })
 
     # submit
-    try:
-        request = requests.post(
-            url, headers={'Content-Type': 'application/json'}, data=data)
-        response = request.json()
+    request = requests.post(
+        url, headers={'Content-Type': 'application/json'}, data=data)
+    response = request.json()
 
-        print(response["message"])
-    except:
-        print("Something went wrong with the server")
+    print(response["message"])
 
     score()
 
 
+@handle_connection_failure
 def leaders():
     url = BASE + "/api/leaderboard"
     # get the leaderboard
@@ -211,6 +226,7 @@ def leaders():
     # print(json.dumps(response))
 
 
+@handle_connection_failure
 def score():
     url = BASE + "/api/score?id={}".format(config["id"])
     # get your current score and rank
@@ -259,7 +275,10 @@ config = read_config()
 
 if __name__ == "__main__":
     init()
-    register()
+
+    if not register():
+        sys.exit(1)
+
     command = None
     while not command:
         print("")
