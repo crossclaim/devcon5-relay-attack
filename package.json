@@ -1,0 +1,30 @@
+{
+  "name": "btcrelay-sol",
+  "version": "1.0.0",
+  "description": "BTCRelay implementation in Solidity",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@summa-tx/bitcoin-spv-sol": "^2.1.0",
+    "buffer-reverse": "^1.0.1",
+    "openzeppelin-solidity": "^2.3.0",
+    "solidity-bytes-utils": "^0.0.5",
+    "truffle-assertions": "^0.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crossclaim/btcrelay-sol.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crossclaim/btcrelay-sol/issues"
+  },
+  "homepage": "https://github.com/crossclaim/btcrelay-sol#readme"
+}
