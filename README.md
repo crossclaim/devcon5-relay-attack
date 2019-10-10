@@ -37,6 +37,22 @@ May the best team survive....
 
 ## Instructions
 
+### Quick
+
+Execute the install shell script with:
+
+```
+./install
+```
+
+Start the game with:
+
+```
+./play
+```
+
+### Long
+
 Install `ganache-cli` and `truffle` globally using:
 
 ```
