@@ -26,8 +26,14 @@ _______   ____ |  | _____  ___.__. _____ _/  |__/  |______    ____ |  | __
 
 # Relay Attack
 
-You BTC Relay is broken! Fix the bugs and defend yourself against incoming attacks!
+You BTC Relay is broken! 
+
+Fix the bugs and defend yourself against incoming attacks!
+
+
 May the best team survive....
+
+(HINT: you have to add the correct 'require' statements!)
 
 ## Instructions
 
